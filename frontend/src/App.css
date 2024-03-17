@@ -1,0 +1,106 @@
+.appBlock {
+  text-align: center;
+  background: linear-gradient(300deg, #d97171, #000000);
+  position: relative;
+  overflow: hidden;
+  padding: 5%;
+}
+
+.appBlock::before {
+  content: "";
+  position: relative;
+  width: 10px;
+  height: 10px;
+  background-color: #180450; 
+  border-radius: 50%;
+}
+
+.appBlock::after {
+  animation: scatterCubes 20s infinite;
+}
+
+
+.App-header {
+  background-color: transparent;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+  animation: App-logo-spin infinite 20s linear;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.form {
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 8%;
+  border-radius: 20px;
+}
+
+.questionLabel, .fileLabel {
+  color: rgb(238, 213, 213);
+  margin-bottom: 10px;
+  display: block;
+  padding: 2%;
+  margin: 2%;
+}
+
+.questionInput, .fileInput {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  width: 80%;
+}
+
+.submitBtn {
+  background-color: #0a0210;
+  color: white;
+  border: 50%;
+  padding: 10px 20px;
+  border-radius: 30%;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submitBtn:hover {
+  background-color: #561b1b;
+}
+
+.resultOutput {
+  color: white;
+  margin-top: 20px;
+  animation: fadeIn 5s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
