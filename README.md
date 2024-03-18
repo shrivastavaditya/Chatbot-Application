@@ -2,6 +2,10 @@
 
 Welcome to FileBot, your AI-powered ChatBot designed to assist you with file preprocessing and answering questions related to your documents. Whether you have a PDF, DOCX, CSV, or TXT file, FileBot is here to help!
 
+## Demo Video
+
+![Video 1](./demo.mp4)
+
 ## Overview
 
 FileBot leverages Natural Language Processing (NLP) techniques to extract information from your uploaded files and answer questions based on the content. The frontend is built using React, while the backend is powered by FastAPI, providing a seamless user experience and efficient processing.
