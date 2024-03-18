@@ -50,7 +50,7 @@ FileBot was developed by Aditya Kumar as a project for LLM Assignment.
 
 ## Demo Video
 
-![Click here to watch youtube video](https://youtu.be/fVI2_1Own34)
+![Click here to download raw video file](./demo.mp4)
 
 
 Copyright © 2024 FileBot. All rights reserved.
