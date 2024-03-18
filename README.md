@@ -4,7 +4,7 @@ Welcome to FileBot, your AI-powered ChatBot designed to assist you with file pre
 
 ## Demo Video
 
-![Video 1](https://drive.google.com/file/d/1ms8PrmFCCK92n9l2mLeXch7JVhHSCzKd/view)
+![Click here and download raw](./demo.mp4)
 
 ## Overview
 
