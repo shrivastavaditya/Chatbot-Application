@@ -175,7 +175,7 @@ def extract_text_from_pdf(file: UploadFile) -> str:
     for page_num in range(len(pdf_document)):
         page = pdf_document[page_num]
         page_text = page.get_text()
-        text += page_text + "\n\n"
+        text += page_text + ""
     
     return text
 
@@ -185,6 +185,15 @@ def process_uploaded_file(file: UploadFile, question: str) -> str:
     # Initialize NLTK resources
     stop_words = set(stopwords.words('english'))
     lemmatizer = WordNetLemmatizer()
+    # Check if the question is a greeting or basic NLP query
+    if question is None:
+        return "Hi there! Please upload your file."
+    elif any(greeting in question.lower() for greeting in ["hi", "hello", "hey"]):
+        return "Hello! Please upload your file."
+    elif "how are you" in question.lower():
+        return "I'm fine, thank you! How can I help you?"
+    elif "who are you" in question.lower():
+        return "I am a ChatBot designed to assist you with your queries. Please feel free to ask any questions!"   
     
     # Check the file extension
     file_extension = file.filename.split(".")[-1].lower()
@@ -205,6 +214,9 @@ def process_uploaded_file(file: UploadFile, question: str) -> str:
         os.remove(file_path)
         return result
 
+    elif file_extension== "txt":
+        file_content = file.file.read().decode("utf-8")
+       
     else:
         # Unsupported file type
         return "Unsupported file type. Please upload a PDF, DOCX, or CSV file."
@@ -239,20 +251,13 @@ def process_uploaded_file(file: UploadFile, question: str) -> str:
         # Compute cosine similarity between the question and each line
         similarities = cosine_similarity(tfidf_matrix[0:1], tfidf_matrix[1:])[0]
         
-        # Select lines with cosine similarity greater than 0.8
+        # Select lines with cosine similarity greater than 0.5
         for idx, sim in enumerate(similarities):
-            if sim > 0.8:
-                relevant_lines.append(file_content[idx].strip())  # Append the original line without tokenization
-        
-        # Select top N lines with highest cosine similarity
-        top_n = min(len(file_content), 2)  # Select top 2 lines at most
-        top_indices = similarities.argsort()[-top_n:][::-1]
-        
-        relevant_lines = [file_content[idx].strip() for idx in top_indices]  # Select original lines
-        
+            if sim > 0.3:
+                relevant_lines.append(file_content[idx].strip()) 
     else:
         # If question is not provided, consider all lines as relevant
-        relevant_lines = [line.strip() for line in file_content]  # Select original lines
+        return "The question asked is not guaranteed to be in the uploaded document. Try some another questions!!" 
     
     # Concatenate the relevant lines to form the response
     response = "\n\n".join(relevant_lines)
@@ -268,7 +273,6 @@ async def predict(
 ) -> Any:
     # Print the received question
     print("Received question:", question)
-
     # Call the function to process the uploaded file and handle user queries
     result = process_uploaded_file(file, question)
     print(result)

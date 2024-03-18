@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCopyright, faArrowCircleRight } from '@fortawesome/free-solid-svg-icons';
 import "./App.css";
 
 export default function App() {
@@ -79,6 +81,9 @@ export default function App() {
 
   return (
     <div className="appBlock">
+
+      <h1 className="heading">FileBot: LLM ChatBot</h1>
+
       <form onSubmit={handleSubmit} className="form">
         <input
           type="file"
@@ -88,8 +93,11 @@ export default function App() {
           onChange={handleFileChange}
           className="fileInput"
         />
+        
        
         <div className="chatbox" id="chatbox">
+          <div className="botMessage">Hi!!!</div>
+          <div className="botMessage">Please upload your .txt, .pdf, .docx or .csv file to be preprocessed and ask the question further!!</div>
         </div>
         <div className="questionContainer" id="questionContainer">
               <input
@@ -103,7 +111,7 @@ export default function App() {
                 placeholder="Ask your question here"
               />
               <button className="submitBtn" type="submit" disabled={!file || !question}>
-                <i className="fa-solid fa-paper-plane"></i>
+              <FontAwesomeIcon icon={faArrowCircleRight} />
               </button>
             </div>
       </form>

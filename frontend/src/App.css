@@ -3,7 +3,7 @@
   background: linear-gradient(300deg, #d97171, #000000);
   position: relative;
   overflow: hidden;
-  padding: 5%;
+  padding: 4%;
 }
 
 .appBlock::before {
@@ -17,6 +17,12 @@
 
 .appBlock::after {
   animation: scatterCubes 20s infinite;
+}
+
+.heading{
+  color: rgb(247, 213, 213);
+  margin-top: 0;
+  padding-top: 0;
 }
 
 .form {
@@ -62,16 +68,17 @@
 }
 
 .submitBtn {
-  background-color: #0a0210;
+  background-color: #b72e2e;
   color: white;
   padding: 8px 16px; /* Reduce padding */
-  border-radius: 30%;
+  border-radius: 60%;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .submitBtn:hover {
   background-color: #561b1b;
+
 }
 
 .questionContainer {
@@ -125,7 +132,7 @@
   .questionContainer {
     width: 100%;
     position: absolute;  
-    margin-top: 76.5%;
+    margin-top: 78.5%;
     margin-left: 1%;
   }
 }
