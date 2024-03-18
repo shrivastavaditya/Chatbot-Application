@@ -19,59 +19,52 @@
   animation: scatterCubes 20s infinite;
 }
 
-
-.App-header {
-  background-color: transparent;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-  animation: App-logo-spin infinite 20s linear;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 .form {
   background-color: rgba(255, 255, 255, 0.05);
-  padding: 8%;
+  padding: 4%; /* Reduce padding */
   border-radius: 20px;
+  margin-top: 20px; /* Adjusted margin */
+  display: flex; /* Add flex display */
 }
 
-.questionLabel, .fileLabel {
-  color: rgb(238, 213, 213);
-  margin-bottom: 10px;
-  display: block;
-  padding: 2%;
-  margin: 2%;
+.chatbox{
+  background: linear-gradient(-300deg, #d97171, #582727);
+  padding: 20px;
+  border-radius: 20px;
+  margin-left: 20px; 
+  overflow-y: auto;
+  flex: 1; 
 }
 
-.questionInput, .fileInput {
+
+.fileInput {
   background-color: rgba(255, 255, 255, 0.1);
-  color: white;
-  padding: 12px;
+  color: rgb(193, 167, 167);
+  padding: 8px; /* Reduce padding */
+  margin: 3%;
   border: none;
   border-radius: 8px;
-  margin-bottom: 20px;
-  width: 80%;
+  width: 15%; /* Set width to 20% */
+  height: 120px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.questionInput {
+  background-color: rgba(30, 17, 17, 0.1);
+  color: white;
+  padding: 8px; /* Reduce padding */
+  border: none;
+  border-radius: 8px;
+  margin-bottom: 10px; /* Reduce margin */
+  width: 50%; /* Set width to 80% */
+  flex: 1;
 }
 
 .submitBtn {
   background-color: #0a0210;
   color: white;
-  border: 50%;
-  padding: 10px 20px;
+  padding: 8px 16px; /* Reduce padding */
   border-radius: 30%;
   cursor: pointer;
   transition: background-color 0.3s ease;
@@ -81,26 +74,58 @@
   background-color: #561b1b;
 }
 
-.resultOutput {
-  color: white;
+.questionContainer {
+  width: 100%;
+  position: absolute;  
+  margin-top: 39.5%;
+  margin-left: 1%;
+}
+
+
+.chatbox {
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(-300deg, #d97171, #582727);
+  width: 80%;
+  height: 70vh;
+  padding: 20px;
+  border-radius: 20px;
   margin-top: 20px;
-  animation: fadeIn 5s;
+  overflow-y: auto;
+  position: relative; 
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+.userMessage {
+  background-color: #ccaba2; /* User message background color */
+  color: black;
+  padding: 8px; /* Reduce padding */
+  border-radius: 10px;
+  margin-bottom: 10px;
+  align-self: flex-end;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.botMessage {
+  background-color: #f7cac8; /* Bot message background color */
+  color: black;
+  padding: 8px; /* Reduce padding */
+  border-radius: 10px;
+  margin-bottom: 10px;
+  align-self: flex-start;
+}
+
+@media only screen and (max-width: 1000px) {
+  .form {
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 5%; /* Reduce padding */
+    border-radius: 20px;
+    margin-top: 20px; /* Adjusted margin */
+    display: flex; /* Add flex display */
   }
-  to {
-    transform: rotate(360deg);
+
+  .questionContainer {
+    width: 100%;
+    position: absolute;  
+    margin-top: 76.5%;
+    margin-left: 1%;
   }
 }

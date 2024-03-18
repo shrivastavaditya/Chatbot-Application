@@ -1,13 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 
 export default function App() {
-  const [result, setResult] = useState<string | null>(null);
+  const [messages, setMessages] = useState<{ sender: string; message: string }[]>([]);
   const [question, setQuestion] = useState<string>("");
   const [file, setFile] = useState<File | null>(null);
 
+  useEffect(() => {
+    // Scroll to bottom of chatbox when messages change
+    const chatbox = document.getElementById("chatbox");
+    if (chatbox) {
+      chatbox.scrollTop = chatbox.scrollHeight;
+    }
+  }, [messages]);
+
   const handleQuestionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setQuestion(event.target.value);
+    setQuestion(event.target.value);
   };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -18,22 +26,29 @@ export default function App() {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    sendMessage();
+  };
 
+  const sendMessage = () => {
     const formData = new FormData();
 
     if (question) {
       formData.append("question", question);
-    }
+      setQuestion(""); // Clear the question input after submitting
 
+      // Append the user's question to the chatbox
+      const chatbox = document.getElementById("chatbox");
+      if (chatbox) {
+        const userMessage = document.createElement("div");
+        userMessage.textContent = question;
+        userMessage.classList.add("userMessage");
+        chatbox.appendChild(userMessage);
+        chatbox.scrollTop = chatbox.scrollHeight;
+      }
+    }
     if (file) {
       formData.append("file", file);
     }
- 
-    for (const [key, value] of formData.entries()) {
-      console.log(`${key}: ${value}`);
-    }
-    
-
 
     fetch("http://127.0.0.1:8000/predict", {
       method: "POST",
@@ -41,47 +56,57 @@ export default function App() {
     })
       .then((response) => response.json())
       .then((data) => {
-        setResult(data.result);
+        const chatbox = document.getElementById("chatbox");
+        if (chatbox) {
+          const ansbox = document.createElement("div");
+          ansbox.textContent = data.result;
+          ansbox.classList.add("botMessage");
+          chatbox.appendChild(ansbox);
+          chatbox.scrollTop = chatbox.scrollHeight;
+        }
       })
       .catch((error) => {
         console.error("Error", error);
       });
   };
 
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      event.preventDefault(); // Prevent form submission
+      sendMessage();
+    }
+  };
+
   return (
     <div className="appBlock">
       <form onSubmit={handleSubmit} className="form">
-        <label className="questionLabel" htmlFor="question">
-          Question:
-        </label>
-        <input
-          className="questionInput"
-          id="question"
-          name="question"
-          type="text"
-          onChange={handleQuestionChange}
-          placeholder="Ask your question here"
-        />
-
-        <br />
-        <label className="fileLabel" htmlFor="file">
-          Upload File:
-        </label>
-
         <input
           type="file"
           id="file"
           name="file"
-          accept=".csv, .txt, .docx, .pdf" // Accept multiple file types
+          accept=".csv, .txt, .docx, .pdf"
           onChange={handleFileChange}
           className="fileInput"
         />
-        <br />
-        <button className="submitBtn" type="submit" disabled={!file || !question}>
-          Submit
-        </button>
+       
+        <div className="chatbox" id="chatbox">
+        </div>
+        <div className="questionContainer" id="questionContainer">
+              <input
+                className="questionInput"
+                id="question"
+                name="question"
+                type="text"
+                value={question}
+                onChange={handleQuestionChange}
+                onKeyPress={handleKeyPress} // Handle keypress event
+                placeholder="Ask your question here"
+              />
+              <button className="submitBtn" type="submit" disabled={!file || !question}>
+                <i className="fa-solid fa-paper-plane"></i>
+              </button>
+            </div>
       </form>
-      <p className="resultOutput">Result: {result}</p>
     </div>
   );
 }
